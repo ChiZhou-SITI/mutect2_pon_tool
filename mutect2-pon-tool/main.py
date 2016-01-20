@@ -46,7 +46,7 @@ def main():
                         required = False,
                         help='Reference SNP path.',
     )
-    parser.add_argument('-cos', '--known_cosmic_path',
+    parser.add_argument('-cos', '--cosmic_path',
                         required = False,
                         help='Reference COSMIC path.',
     )
