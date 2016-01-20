@@ -108,6 +108,7 @@ def main():
     elif tool_name == 'CombineVariants':
         vcf_path_list = pipe_util.get_param(args, 'vcf_path')
         reference_fasta_path = pipe_util.get_param(args, 'reference_fasta_path')
+        thread_count = pipe_util.get_param(args, 'thread_count')
         CombineVariants.combinevcf(uuid, vcf_path_list, reference_fasta_path, engine, logger)
     else:
         sys.exit('No recognized tool was selected')
