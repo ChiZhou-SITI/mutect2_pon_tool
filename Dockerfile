@@ -7,16 +7,16 @@ RUN apt-get update && apt-get install -y --force-yes \
 USER ubuntu
 ENV HOME /home/ubuntu
 
-ENV cocleaning-tool 0.1a
+ENV mutect2-pon-tool 0.1a
 
-RUN mkdir -p ${HOME}/tools/cocleaning-tool
+RUN mkdir -p ${HOME}/tools/mutect2-pon-tool
 ADD docker/GenomeAnalysisTK.jar ${HOME}/tools/
-ADD cocleaning-tool ${HOME}/tools/cocleaning-tool/
-ADD setup.* ${HOME}/tools/cocleaning-tool/
+ADD mutect2-pon-tool ${HOME}/tools/mutect2-pon-tool/
+ADD setup.* ${HOME}/tools/mutect2-pon-tool/
 
 RUN /bin/bash -c "source ${HOME}/.local/bin/virtualenvwrapper.sh \
     && source ~/.virtualenvs/p3/bin/activate \
-    && cd ~/tools/cocleaning-tool \
+    && cd ~/tools/mutect2-pon-tool \
     && pip install -e ."
 
 WORKDIR ${HOME}
