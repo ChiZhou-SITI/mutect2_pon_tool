@@ -91,7 +91,7 @@ def main():
     logger.info('hostname=%s' % hostname)
 
 
-    if tool_name == 'realignertargetcreator':
+    if tool_name == 'RealignerTargetCreator':
         bam_path = pipe_util.get_param(args, 'bam_path')[0]
         known_indel_vcf_path = pipe_util.get_param(args, 'known_indel_vcf_path')
         reference_fasta_path = pipe_util.get_param(args, 'reference_fasta_path')
