@@ -6,7 +6,7 @@ from cdis_pipe_utils import df_util
 from cdis_pipe_utils import pipe_util
 from cdis_pipe_utils import time_util
 
-def pon(uuid, bam_path, thread_count, reference_fasta_path, cosmic_path, target_interval, known_snp_vcf_path, engine, logger):
+def pon(uuid, bam_path, thread_count, reference_fasta_path, cosmic_path, intervals_path, known_snp_vcf_path, engine, logger):
   step_dir = os.getcwd()
   bam_name = os.path.basename(bam_path)
   bam_base, bam_ext = os.path.splitext(bam_name)
@@ -18,7 +18,7 @@ def pon(uuid, bam_path, thread_count, reference_fasta_path, cosmic_path, target_
     logger.info('running step `MuTect2 Panel Of Normal calling` of: %s' % bam_path)
     home_dir = os.path.expanduser('~')
     gatk_path = os.path.join(home_dir, 'tools', 'GenomeAnalysisTK.jar')
-    cmd = ['java', '-d64', '-jar', gatk_path, '-nct', str(thread_count), '-T', 'MuTect2', '-R', reference_fasta_path, '-I:tumor', bam_path, '--cosmic', cosmic_path, '--dbsnp', known_snp_vcf_path, '--artifact_detection_mode', '-L', target_interval, '-o', out_pon_vcf]
+    cmd = ['java', '-d64', '-jar', gatk_path, '-nct', str(thread_count), '-T', 'MuTect2', '-R', reference_fasta_path, '-I:tumor', bam_path, '--cosmic', cosmic_path, '--dbsnp', known_snp_vcf_path, '--artifact_detection_mode', '-L', intervals_path, '-o', out_pon_vcf]
     output = pipe_util.do_command(cmd, logger)
 
     #store time/mem
