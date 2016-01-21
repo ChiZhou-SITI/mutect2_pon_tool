@@ -57,12 +57,12 @@ def main():
     )
     parser.add_argument('-i', '--intervals_path',
                         required = False
-                        action = "append",
+                        action="append",
                         help = 'Target intervals',
     )
     parser.add_argument('-v', '--vcf_path',
                         required = False
-                        action = "append",
+                        action="append",
                         help = 'Individual VCF path',
     )
     parser.add_argument('-j', '--thread_count',
