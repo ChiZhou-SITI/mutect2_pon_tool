@@ -56,12 +56,12 @@ def main():
                         help = 'Source bam path.',
     )
     parser.add_argument('-i', '--intervals_path',
-                        required = False
+                        required = False,
                         action="append",
                         help = 'Target intervals',
     )
     parser.add_argument('-v', '--vcf_path',
-                        required = False
+                        required = False,
                         action="append",
                         help = 'Individual VCF path',
     )
