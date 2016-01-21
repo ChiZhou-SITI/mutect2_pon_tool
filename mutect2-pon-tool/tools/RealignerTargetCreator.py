@@ -10,7 +10,7 @@ def rtc(uuid, bam_path, thread_count, reference_fasta_path, known_indel_vcf_path
   step_dir = os.getcwd()
   bam_name = os.path.basename(bam_path)
   bam_base, bam_ext = os.path.splitext(bam_name)
-  out_intervals_path = os.path.join(step_dir, bam_base) + '.intervals'
+  out_intervals_path = bam_base + '.intervals'
   logger.info('out_intervals_path=%s' % out_intervals_path)
   if pipe_util.already_step(step_dir, uuid + '_RealignerTargetCreator', logger):
     logger.info('already completed step `RealignerTargetCreator` of: %s' % bam_path)
