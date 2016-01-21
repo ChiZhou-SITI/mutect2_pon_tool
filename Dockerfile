@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --force-yes \
 USER ubuntu
 ENV HOME /home/ubuntu
 
-ENV mutect2-pon-tool 0.1d
+ENV mutect2-pon-tool 0.2a
 
 RUN mkdir -p ${HOME}/tools/mutect2-pon-tool
 ADD docker/GenomeAnalysisTK.jar ${HOME}/tools/
