@@ -15,7 +15,7 @@ def combinevcf(uuid, vcf_path_list, reference_fasta_path, thread_count, engine, 
     logger.info('running step `CombineVariants` of: %s' % vcf_path_list)
     home_dir = os.path.expanduser('~')
     gatk_path = os.path.join(home_dir, 'tools/GenomeAnalysisTK.jar')
-    cmd = ['java', '-d64', '-jar', gatk_path, '-T', 'CombineVariants', '-nt', str(thread_count), '-R', reference_fasta_path, '-minN 2', '--setKey "null"', '--filteredAreUncalled', '--filteredrecordsmergetype KEEP_IF_ANY_UNFILTERED', '-o', output_pon_vcf]
+    cmd = ['java', '-Djava.io.tmpdir=/tmp/job_tmp', '-d64', '-jar', gatk_path, '-T', 'CombineVariants', '-nt', str(thread_count), '-R', reference_fasta_path, '-minN 2', '--setKey "null"', '--filteredAreUncalled', '--filteredrecordsmergetype KEEP_IF_ANY_UNFILTERED', '-o', output_pon_vcf]
     for vcf_path in vcf_path_list:
       cmd.extend(['-V', vcf_path])
     output = pipe_util.do_command(cmd, logger)

@@ -18,7 +18,7 @@ def pon(uuid, bam_path, thread_count, reference_fasta_path, cosmic_path, interva
     logger.info('running step `MuTect2 Panel Of Normal calling` of: %s' % bam_path)
     home_dir = os.path.expanduser('~')
     gatk_path = os.path.join(home_dir, 'tools', 'GenomeAnalysisTK.jar')
-    cmd = ['java', '-d64', '-jar', gatk_path, '-nct', str(thread_count), '-T', 'MuTect2', '-R', reference_fasta_path, '-I:tumor', bam_path, '--cosmic', cosmic_path, '--dbsnp', known_snp_vcf_path, '--artifact_detection_mode', '-L', intervals_path, '-o', out_pon_vcf]
+    cmd = ['java', '-Djava.io.tmpdir=/tmp/job_tmp', '-d64', '-jar', gatk_path, '-nct', str(thread_count), '-T', 'MuTect2', '-R', reference_fasta_path, '-I:tumor', bam_path, '--cosmic', cosmic_path, '--dbsnp', known_snp_vcf_path, '--artifact_detection_mode', '-L', intervals_path, '-o', out_pon_vcf]
     output = pipe_util.do_command(cmd, logger)
 
     #store time/mem
