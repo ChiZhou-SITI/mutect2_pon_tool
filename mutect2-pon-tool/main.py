@@ -50,10 +50,10 @@ def main():
                         required = False,
                         help='Reference COSMIC path.',
     )
-    parser.add_argument('-b', '--bam_path',
+    parser.add_argument('-b', '--cram_path',
                         required = False,
                         action="append",
-                        help = 'Source bam path.',
+                        help = 'Source cram path.',
     )
     parser.add_argument('-i', '--intervals_path',
                         required = False,
@@ -92,19 +92,19 @@ def main():
 
 
     if tool_name == 'RealignerTargetCreator':
-        bam_path = pipe_util.get_param(args, 'bam_path')[0]
+        cram_path = pipe_util.get_param(args, 'cram_path')[0]
         known_indel_vcf_path = pipe_util.get_param(args, 'known_indel_vcf_path')
         reference_fasta_path = pipe_util.get_param(args, 'reference_fasta_path')
         thread_count = pipe_util.get_param(args, 'thread_count')
-        RealignerTargetCreator.rtc(uuid, bam_path, thread_count, reference_fasta_path, known_indel_vcf_path, engine, logger)
+        RealignerTargetCreator.rtc(uuid, cram_path, thread_count, reference_fasta_path, known_indel_vcf_path, engine, logger)
     elif tool_name == 'mutect2_pon_tool':
-        bam_path = pipe_util.get_param(args, 'bam_path')[0]
+        cram_path = pipe_util.get_param(args, 'cram_path')[0]
         known_snp_vcf_path = pipe_util.get_param(args, 'known_snp_vcf_path')
         intervals_path = pipe_util.get_param(args, 'intervals_path')[0]
         cosmic_path = pipe_util.get_param(args, 'cosmic_path')
         reference_fasta_path = pipe_util.get_param(args, 'reference_fasta_path')
         thread_count = pipe_util.get_param(args, 'thread_count')
-        mutect2_pon_tool.pon(uuid, bam_path, thread_count, reference_fasta_path, cosmic_path, intervals_path, known_snp_vcf_path, engine, logger)
+        mutect2_pon_tool.pon(uuid, cram_path, thread_count, reference_fasta_path, cosmic_path, intervals_path, known_snp_vcf_path, engine, logger)
     elif tool_name == 'CombineVariants':
         vcf_path_list = pipe_util.get_param(args, 'vcf_path')
         reference_fasta_path = pipe_util.get_param(args, 'reference_fasta_path')

@@ -25,5 +25,5 @@ def combinevcf(uuid, vcf_path_list, reference_fasta_path, thread_count, engine, 
     unique_key_dict = {'uuid': uuid, 'output_pon_vcf': output_pon_vcf}
     df_util.save_df_to_sqlalchemy(df, unique_key_dict, table_name, engine, logger)
     pipe_util.create_already_step(step_dir, uuid + '_CombineVariants', logger)
-    logger.info('completed running step `CombineVariants` of: %s' % bam_path_list)
+    logger.info('completed running step `CombineVariants` of: %s' % vcf_path_list)
   return
