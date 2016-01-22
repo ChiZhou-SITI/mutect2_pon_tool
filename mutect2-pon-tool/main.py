@@ -38,9 +38,9 @@ def main():
                         required = False,
                         help = 'Reference fasta path.',
     )
-    parser.add_argument('-indel', '--known_indel_vcf_path',
+    parser.add_argument('-rf', '--reference_fasta_fai',
                         required = False,
-                        help='Reference INDEL path.',
+                        help = 'Reference fasta fai path.',
     )
     parser.add_argument('-snp', '--known_snp_vcf_path',
                         required = False,
@@ -55,11 +55,6 @@ def main():
                         action="append",
                         help = 'Source cram path.',
     )
-    parser.add_argument('-i', '--intervals_path',
-                        required = False,
-                        action="append",
-                        help = 'Target intervals',
-    )
     parser.add_argument('-v', '--vcf_path',
                         required = False,
                         action="append",
@@ -69,6 +64,12 @@ def main():
                         required = False,
                         type = is_nat,
                         help = 'Maximum number of threads for execution.',
+    )
+    parser.add_argument('-bs', '--Parallel_Block_Size',
+                        type = is_nat,
+                        default = 50000000,
+                        required = False,
+                        help = 'Parallel Block Size',
     )
     parser.add_argument('-u', '--uuid',
                         required = True,
@@ -83,6 +84,7 @@ def main():
     tool_name = args.tool_name
     uuid = args.uuid
     thread_count = str(args.thread_count)
+    Parallel_Block_Size = str(args.Parallel_Block_Size)
 
     logger = pipe_util.setup_logging('gatk_' + tool_name, args, uuid)
     engine = pipe_util.setup_db(uuid)
@@ -91,20 +93,15 @@ def main():
     logger.info('hostname=%s' % hostname)
 
 
-    if tool_name == 'RealignerTargetCreator':
-        cram_path = pipe_util.get_param(args, 'cram_path')[0]
-        known_indel_vcf_path = pipe_util.get_param(args, 'known_indel_vcf_path')
-        reference_fasta_path = pipe_util.get_param(args, 'reference_fasta_path')
-        thread_count = pipe_util.get_param(args, 'thread_count')
-        RealignerTargetCreator.rtc(uuid, cram_path, thread_count, reference_fasta_path, known_indel_vcf_path, engine, logger)
-    elif tool_name == 'mutect2_pon_tool':
+    if tool_name == 'mutect2_pon_tool':
         cram_path = pipe_util.get_param(args, 'cram_path')[0]
         known_snp_vcf_path = pipe_util.get_param(args, 'known_snp_vcf_path')
-        intervals_path = pipe_util.get_param(args, 'intervals_path')[0]
         cosmic_path = pipe_util.get_param(args, 'cosmic_path')
         reference_fasta_path = pipe_util.get_param(args, 'reference_fasta_path')
         thread_count = pipe_util.get_param(args, 'thread_count')
-        mutect2_pon_tool.pon(uuid, cram_path, thread_count, reference_fasta_path, cosmic_path, intervals_path, known_snp_vcf_path, engine, logger)
+        fai_path = pipe_util.get_param(args, 'reference_fasta_fai')
+        blocksize = pipe_util.get_param(args, 'Parallel_Block_Size')
+        mutect2_pon_tool.pon(uuid, cram_path, thread_count, reference_fasta_path, cosmic_path, fai_path, blocksize, known_snp_vcf_path, engine, logger)
     elif tool_name == 'CombineVariants':
         vcf_path_list = pipe_util.get_param(args, 'vcf_path')
         reference_fasta_path = pipe_util.get_param(args, 'reference_fasta_path')
