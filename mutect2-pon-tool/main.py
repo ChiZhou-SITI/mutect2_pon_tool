@@ -7,7 +7,6 @@ import sys
 import sqlalchemy
 from cdis_pipe_utils import pipe_util
 
-import tools.RealignerTargetCreator as RealignerTargetCreator
 import tools.mutect2_pon_tool as mutect2_pon_tool
 import tools.CombineVariants as CombineVariants
 
