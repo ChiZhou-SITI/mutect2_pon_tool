@@ -63,7 +63,7 @@ def pon(uuid, cram_path, thread_count, reference_fasta_path, cosmic_path, fai_pa
   cram_base, cram_ext = os.path.splitext(cram_name)
   merge_dir = os.getcwd()
   os.makedirs(merge_dir, exist_ok=True)
-  out_pon_vcf = os.path.join(merge_dir, tb_base) + '_pon.vcf'
+  out_pon_vcf = os.path.join(merge_dir, cram_base) + '_pon.vcf'
   logger.info('out_pon_vcf=%s' % out_pon_vcf)
   if pipe_util.already_step(step_dir, cram_name + '_MuTect2_PON', logger):
     logger.info('already completed step `MuTect2 Panel Of Normal calling` of: %s' % cram_path)
